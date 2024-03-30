@@ -1,0 +1,260 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobiles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #333;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        nav {
+          text-align: center;
+          margin-top: 20px;
+      }
+
+      nav ul {
+          padding: 0;
+          margin: 0;
+          list-style: none;
+      }
+
+      nav ul li {
+          display: inline;
+          margin-right: 20px;
+      }
+      
+      nav ul li a {
+          color: white;
+          text-decoration: none;
+      }
+
+      nav ul li a:hover {
+          color: black;
+      }
+      body{
+        background-color: lightgrey;
+      }
+      nav {
+        background-color: grey;
+      }
+      h2{
+        text-align:center;
+      }
+      .image-container {
+        display: inline-block;
+        width: 50%; /* Adjust as needed */
+        margin-right: -5px; /* Reduce spacing between images */
+        text-align: center; /* Center images within containers */
+    }
+
+    .image-container img {
+        max-width: 100%;
+        height: auto;
+        display: block; /* Ensure images don't have extra space below */
+        margin: 0 auto; /* Center images horizontally */
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      
+      .box {
+        flex: 10 calc(33.33%); /* Adjust the width as needed */
+        margin: 5px; /* Adjust the margin as needed */
+        background-color: #f0f0f0;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+    </style>
+</head>
+<body>
+  {% if user.is_authenticated %}
+            
+            <nav>
+              <h1>Hello {{ user.username }}!!</h1>
+                <ul>
+                    <li id="logout_button"><a href="accounts/logout">Logout</a></li>
+                    <li><a href="/">Home</a></li>
+                  
+                </ul>
+            </nav>
+  <h2>Mobile Specs Form</h2>
+    <form action="{% url 'mobile' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Enter name"></input>
+        <br>
+        <br>
+        <input type="number" name="price" placeholder="Enter price"></input>
+        <br>
+        <br>
+        <fieldset>
+            <legend>RAM</legend>
+            <label><input type="radio" name="RAM" value="4GB"> 4GB</label><br>
+            <label><input type="radio" name="RAM" value="8GB"> 8GB</label><br>
+            <label><input type="radio" name="RAM" value="16GB"> 16GB</label><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Processor</legend>
+            <label><input type="radio" name="processor" value="Qualcomm Snapdragon">Qualcomm Snapdragon</label><br>
+            <label><input type="radio" name="processor" value="MediaTek Helio">MediaTek Helio</label><br>
+            <label><input type="radio" name="processor" value="Apple A series">Apple A series</label><br>
+            <label><input type="radio" name="processor" value="Samsung Exynos">Samsung Exynos</label><br>
+            <label><input type="radio" name="processor" value="Other">Other</label><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Battery</legend>
+            <label><input type="radio" name="Battery" value="4000mAh"> 4000mAh</label><br>
+            <label><input type="radio" name="Battery" value="4500mAh"> 4500mAh</label><br>
+            <label><input type="radio" name="Battery" value="5000mAh"> 5000mAh</label><br>
+            <label><input type="radio" name="Battery" value="5500mAh"> 5500mAh</label><br>
+            <label><input type="radio" name="Battery" value="6000mAh"> 6000mAh or more</label><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Brands</legend>
+            <label><input type="radio" name="manufacturer" value="Samsung"> Samsung</label><br>
+            <label><input type="radio" name="manufacturer" value="Apple"> Apple</label><br>
+            <label><input type="radio" name="manufacturer" value="Redmi"> Redmi</label><br>
+            <label><input type="radio" name="manufacturer" value="Realme"> Realme</label><br>
+            <label><input type="radio" name="manufacturer" value="Other"> Other</label><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Memory</legend>
+            <label><input type="radio" name="Storage" value="64GB"> 64GB</label><br>
+            <label><input type="radio" name="Storage" value="128GB"> 128GB</label><br>
+            <label><input type="radio" name="Storage" value="256GB"> 256GB</label><br>
+            <label><input type="radio" name="Storage" value="512GB"> 512GB</label><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Screen Height</legend>
+            <label><input type="radio" name="screen_height" value="5"> 5 to 5.5 inches</label><br>
+            <label><input type="radio" name="screen_height" value="5.5"> 5.5 to 6 inches</label><br>
+            <label><input type="radio" name="screen_height" value="6"> 6 to 6.5 inches</label><br>
+        </fieldset> 
+
+        <fieldset>
+            <legend>Screen Width</legend>
+            <label><input type="radio" name="screen_width" value="2"> 2 to 2.5 inches</label><br>
+            <label><input type="radio" name="screen_width" value="2.5"> 2.5 to 3 inches</label><br>
+            <label><input type="radio" name="screen_width" value="3"> 3 to 3.5 inches</label><br>
+        </fieldset>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <div class="container">
+     {% for d in device%} <div class="box"><b>Name:-</b>&nbsp{{d.name}}
+     <br>
+     <b>Processor:-</b>&nbsp{{d.processor}}
+     <br>
+     <b>Price:-</b>&nbsp{{d.price}}&nbspRs
+     <br>
+     <br>
+     <div class="image-container">
+     <b>Front Side View:-</b><br> <img src="{{d.frontsideimg.url}}" style="width:250px; height:250px">
+     </div>
+     <div class="image-container">
+     <b>Back Side View:-</b><br> <img src="{{d.backsideimg.url}}" style="width:250px; height:250px">
+     </div>
+     <br>
+     <br>
+     <b>Color :-</b>{{d.color}}
+     <br>
+     <b>Manufacturer:-</b> {{d.manufacturer}}
+     <br>
+     <b>RAM:-</b> {{d.RAM}}
+     <br>
+     <b>Storage :-</b> {{d.Storage}}
+     <br>
+     <b>Battery:-</b> {{d.Battery}}
+     <br>
+     <b>Launch Date:-</b> {{d.date_of_release}}
+     <br>
+     <b>Screen Height:-</b> {{d.screen_height}}&nbspinch
+     <br>
+     <b>Screen Width:-</b> {{d.screen_width}}&nbspinch
+     <br>
+     <b>Weight:-</b> {{d.weight}}&nbspgram
+     <br> 
+     <b>Fingerprint Sensor:-</b>
+     {% if d.fingerprintSensor %}
+        Yes
+    {% else %}
+        No
+     {% endif %}
+     <br>
+     <b>Front Camera:-</b> {{d.FrontCamera}}
+      {% for m in d.mobile_set.all %}
+        <br>
+        <b>Rear Camera:-</b> {{m.rearCamera}}
+        <br>
+        <b>Network:-</b> {{m.network}}        
+        <br>
+        <b>Refresh Rate:-</b> {{m.refreshRate}}
+        <br>
+        <b>Screen Type:-</b> {{m.screenType}}
+        <br>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    </div>
+    {% else %}
+    <h2>Please login/signup to continue</h2>
+    <li><a href="/accounts/signup">Sign Up</a></li>
+    <li><a href="/accounts/login">Login</a></li>
+    {% endif %}
+  </body>
+</html> 
