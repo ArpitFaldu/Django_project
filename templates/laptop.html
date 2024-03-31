@@ -119,6 +119,7 @@
         padding: 20px;
         box-sizing: border-box;
       }
+      
     </style>
 </head>
 <body>
@@ -128,9 +129,9 @@
 <nav>
   <h1>Hello {{ user.username }}!!</h1>
     <ul>
-        <li id="logout_button"><a href="accounts/logout">Logout</a></li>
+        <li id="logout_button"><a href="logout">Logout</a></li>
         <li><a href="/">Home</a></li>
-      
+        <li><a href="wishlist">Wishlist</a></li>
     </ul>
 </nav>
 <h2>Laptop Specs Form</h2>
@@ -257,6 +258,11 @@
            <br>
            <b>Graphics Card :-</b> {{m.graphicscard}}
          {% endfor %}
+         <form action="{% url 'add_to_wishlist' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="device_id" value="{{ d.device_id }}">
+            <button type="submit">Add to Wishlist</button>
+        </form>
        </div>
        {% endfor %}
        </div>        

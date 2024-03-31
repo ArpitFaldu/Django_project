@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from firstapp.models import Mobile,Laptop,Device
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from firstapp.models import Mobile,Laptop,Device, Wishlist
 
 # Create your views here.
 def laptop(request):

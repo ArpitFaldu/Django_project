@@ -1,6 +1,8 @@
-from django.shortcuts import render
-from firstapp.models import Device
-
+from pyexpat.errors import messages
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from firstapp.models import Device,Wishlist
+from django.contrib.auth.models import User
 def mobile(request):
     # Initial queryset with all devices
     devices = Device.objects.filter(Type="Mobile").order_by("-device_id")
@@ -53,3 +55,44 @@ def mobile(request):
 
     # Render the template with the filtered queryset
     return render(request, 'mobile.html', {'device': devices})
+
+def add_to_wishlist(request):
+    if request.method == 'POST':
+        device_id_str = request.POST.get('device_id')
+        if device_id_str is not None:
+            print(device_id_str)
+        if device_id_str:
+            try:
+                device_id = int(device_id_str)
+                # Assuming you have a logged-in user, you can get the user from request.user
+                user = request.user
+                device = Device.objects.get(pk=device_id)
+                if Wishlist.objects.filter(user_id=user, device_id=device).exists():
+                    return HttpResponse("Device already exists in wishlist.")
+                Wishlist.objects.create(user_id=user, device_id=device)
+                return HttpResponse("Device added to wishlist successfully!")
+            except ValueError:
+                return HttpResponse("Invalid device ID provided.")
+            except Device.DoesNotExist:
+                return HttpResponse("Device does not exist.")
+        else:
+            return HttpResponse("Device ID not provided.")
+    else:
+        return HttpResponse("Only POST requests are allowed.")
+    
+def wishlist(request):
+    user_id = request.user.id
+    return render(request,"wishlist.html",{'wishlist':Wishlist.objects.all(),'user_id':user_id})
+
+def remove_from_wishlist(request,wishlist_id):
+    if request.method == 'POST':
+        # Assuming you have a logged-in user, you can get the user from request.user
+        user = request.user
+        # Retrieve the wishlist item by its ID and user
+        wishlist_item = get_object_or_404(Wishlist, pk=wishlist_id, user_id=user)
+
+        # Delete the wishlist item
+        wishlist_item.delete()
+        return HttpResponse("Item removed from wishlist successfully!")        
+    else:
+        return HttpResponse("Only POST requests are allowed.")

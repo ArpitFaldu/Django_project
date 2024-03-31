@@ -1,0 +1,253 @@
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="em">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Hello</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+            {% if user.is_authenticated %}
+                <h1>Hello {{user.username}}!!</h1>
+                <li id="logout_button"><a href="accounts/logout">Logout</a></li>
+                <li><a href="Mobile/mobile">Mobile</a></li>
+                <li><a href="Laptop/laptop">Laptop</a></li>
+
+            {% else %}
+                <h1>Hello!!</h1>
+                <li><a href="accounts/signup">Sign Up</a></li>
+                <li><a href="accounts/login">Login</a></li>
+            {% endif %}
+    </body>
+</html> {% endcomment %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hello</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+        {% if user.is_authenticated %}
+        <nav>
+            <h1>Hello {{ user.username }}!!</h1>
+                <ul>
+                    <li id="logout_button"><a href="accounts/logout">Logout</a></li>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+            {% for w in wishlist %}
+            {% if w.user_id.id == user_id %}
+             <div class="container">
+               <div class="box"> 
+                <b>Name:-</b>&nbsp{{w.device_id.name}}
+                <br>
+                <b>Processor:-</b>&nbsp{{w.device_id.processor}}
+                <br>
+                <b>Price:-</b>&nbsp{{w.device_id.price}}&nbspRs
+                <br>
+                <br>
+                <div class="image-container">
+                <b>Front Side View:-</b><br> <img src="{{w.device_id.frontsideimg.url}}" style="width:250px; height:250px">
+                </div>
+                <div class="image-container">
+                <b>Back Side View:-</b><br> <img src="{{w.device_id.backsideimg.url}}" style="width:250px; height:250px">
+                </div>
+                <br>
+                <br>
+                <b>Color :-</b>{{w.device_id.color}}
+                <br>
+                <b>Manufacturer:-</b> {{w.device_id.manufacturer}}
+                <br>
+                <b>RAM:-</b> {{w.device_id.RAM}}
+                <br>
+                <b>Storage :-</b> {{w.device_id.Storage}}
+                <br>
+                <b>Battery:-</b> {{w.device_id.Battery}}
+                <br>
+                <b>Launch Date:-</b> {{w.device_id.date_of_release}}
+                <br>
+                <b>Screen Height:-</b> {{w.device_id.screen_height}}&nbspinch
+                <br>
+                <b>Screen Width:-</b> {{w.device_id.screen_width}}&nbspinch
+                <br>
+                <b>Weight:-</b> {{w.device_id.weight}}&nbspgram
+                <br> 
+                <b>Fingerprint Sensor:-</b>
+                {% if w.device_id.fingerprintSensor %}
+                   Yes
+               {% else %}
+                   No
+                {% endif %}
+                <br>
+                <b>Front Camera:-</b> {{w.device_id.FrontCamera}}
+            {% endif %}
+            {% endfor %}
+        {% else %}
+            <h1>Hello!!</h1>
+            <nav>
+                <ul>
+                    <li><a href="accounts/signup">Sign Up</a></li>
+                    <li><a href="accounts/login">Login</a></li>
+                </ul>
+            </nav>
+        {% endif %}
+    
+</body>
+</html> {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="em">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hello</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .navbar {
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+        }
+        
+        .navbar h1 {
+            margin: 0;
+        }
+        
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .navbar ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        .navbar ul li a {
+            text-decoration: none;
+            color: black;
+        }
+        
+        /* Box styling */
+        .wishlist-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 25px;
+        }
+        .box-content {
+            padding: 15px 15px; /* Adjust the padding as needed */
+        }
+        .box {
+            width: calc(50% - 20px);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        
+        /* Image container styling */
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .image-container img {
+            width: calc(50% - 50px);
+            height: auto;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+<nav class="navbar">
+    <h1>Hello {{ user.username }}!!</h1>
+    <ul>
+        <li id="logout_button"><a href="logout">Logout</a></li>
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+<div class="wishlist-container">
+    {% for w in wishlist %}
+    {% if w.user_id.id == user_id %}
+    <div class="box">
+        <div class="box-content">
+        <b>Name:-</b>&nbsp{{w.device_id.name}}
+        <br>
+        <b>Processor:-</b>&nbsp{{w.device_id.processor}}
+        <br>
+        <b>Price:-</b>&nbsp{{w.device_id.price}}&nbspRs
+        <br>
+        <br>
+        <div class="image-container">
+            <b>Front Side View:-</b><br> <img src="{{w.device_id.frontsideimg.url}}" alt="Front Side View">
+            <b>Back Side View:-</b><br> <img src="{{w.device_id.backsideimg.url}}" alt="Back Side View">
+        </div>
+        <br>
+        <br>
+        <b>Color :-</b>{{w.device_id.color}}
+        <br>
+        <b>Manufacturer:-</b> {{w.device_id.manufacturer}}
+        <br>
+        <b>RAM:-</b> {{w.device_id.RAM}}
+        <br>
+        <b>Storage :-</b> {{w.device_id.Storage}}
+        <br>
+        <b>Battery:-</b> {{w.device_id.Battery}}
+        <br>
+        <b>Launch Date:-</b> {{w.device_id.date_of_release}}
+        <br>
+        <b>Screen Height:-</b> {{w.device_id.screen_height}}&nbspinch
+        <br>
+        <b>Screen Width:-</b> {{w.device_id.screen_width}}&nbspinch
+        <br>
+        <b>Weight:-</b> {{w.device_id.weight}}&nbspgram
+        <br> 
+        <b>Fingerprint Sensor:-</b>
+        {% if w.device_id.fingerprintSensor %}
+        Yes
+        {% else %}
+        No
+        {% endif %}
+        <br>
+        <b>Front Camera:-</b> {{w.device_id.FrontCamera}}
+    </div>
+
+    {% endif %}
+    <form action="{% url 'remove_from_wishlist' w.id %}" method="POST">
+        {% csrf_token %}
+        {% comment %} <input type="hidden" name="device_id" value="{{ w.device_id.device_id }}"> {% endcomment %}
+        <button type="submit">Remove from Wishlist</button>
+    </form>
+</div>
+    {% endfor %}
+</div>
+{% else %}
+<h1>Hello!!</h1>
+<nav class="navbar">
+    <ul>
+        <li><a href="accounts/signup">Sign Up</a></li>
+        <li><a href="accounts/login">Login</a></li>
+    </ul>
+</nav>
+{% endif %}
+
+</body>
+</html>

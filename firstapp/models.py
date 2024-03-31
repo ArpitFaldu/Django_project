@@ -76,5 +76,5 @@ class CompanyInfo(models.Model):
 class Wishlist(models.Model):
     class Meta:
         unique_together = (('user_id', 'device_id'),)
-    user_id=models.ForeignKey(User,primary_key=True, on_delete=models.CASCADE,max_length=100)
+    user_id=models.ForeignKey(User, on_delete=models.CASCADE,max_length=100)
     device_id=models.ForeignKey(Device, on_delete=models.CASCADE,max_length=100)
