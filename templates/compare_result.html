@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Compare Devices</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <style>
+         body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f0f0f0;
+         }
+         .container {
+         display: flex;
+         justify-content: space-around;
+         margin-top: 20px;
+         }
+         .device {
+         flex: 0 0 45%; /* Adjust width as needed */
+         border: 1px solid #ddd;
+         border-radius: 5px;
+         padding: 20px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         background-color: #fff;
+         text-align: center;
+         }
+         .device img {
+         width: 180px;
+         max-width: 200px; /* Adjust image size as needed */
+         height: 180px;
+         margin-bottom: 10px;
+         }
+         .specs {
+         margin-top: 20px;
+         text-align: left;
+         }
+         .specs b {
+         display: block;
+         margin-bottom: 5px;
+         }
+         .img_{
+         height:250px;
+         weight:150px;
+         }
+      </style>
+   </head>
+   <body>
+      <a href="/">Home</a>
+      {% if device1 and device2 %}
+      <div class="container">
+         <div class="device">
+            <img src="{{ device1.frontsideimg.url }}" alt="Device 1 front" class="img_">
+            <img src="{{ device1.backsideimg.url }}" alt="Device 1 back" class="img_">
+            <div class="specs">
+               <hr>
+               <b>Name:</b> {{ device1.name }}
+               <hr>
+               <b>Processor:</b> {{ device1.processor }}
+               <hr>
+               <b>RAM:</b> {{ device1.RAM }}
+               <hr>
+               <b>Battery:</b> {{ device1.Battery }}
+               <hr>
+               <b>Front Camera:  </b> {{ device1.FrontCamera }}
+               <hr>
+               <b>Date of Release:</b> {{ device1.date_of_release }}
+               <hr>
+               <b>Manufacturer:</b> {{ device1.manufacturer }}
+               <hr>
+               <b>Screen Height:</b> {{ device1.screen_height }}
+               <hr>
+               <b>Screen Width:</b> {{ device1.screen_width }}
+               <hr>
+               <b>Weight:</b> {{ device1.weight }}
+               <hr>
+               <b>Color:</b> {{ device1.color }}
+               <hr>
+               <b>Fingerprint Sensor:</b> {% if device1.fingerprintSensor %}Yes{% else %}No{% endif %}
+               <hr>
+               {% for mobile in device1.mobile_set.all %}
+               <b>Network:</b> {{ mobile.network }}
+               <hr>
+               <b>Rare Camera:</b> {{ mobile.rareCamera }}
+               <hr>
+               <b>Refresh State:</b> {{ mobile.refreshState }}
+               <hr>
+               <b>Screen Type:</b> {{ mobile.screenType }}
+               <hr>
+               {% endfor %}
+               {% for laptop in device1.laptop_set.all %}
+               <b>Laptop Generation:</b> {{ laptop.generation }}<hr>
+               <b>SSD:</b> {{ laptop.ssd }}<hr>
+               <b>Operating System:</b> {{ laptop.os }}<hr>
+               <b>Graphics Card:</b> {{ laptop.graphicscard }}<hr>
+               
+               {% endfor %}
+            </div>
+         </div>
+         <div class="device">
+            <img src="{{ device2.frontsideimg.url }}" alt="Device 2 front" class="img_">
+            <img src="{{ device2.backsideimg.url }}" alt="Device 2 back" class="img_">
+            <div class="specs">
+               <hr>
+               <b>Name:</b> {{ device2.name }}
+               <hr>
+               <b>Processor:</b> {{ device2.processor }}
+               <hr>
+               <b>RAM:</b> {{ device2.RAM }}
+               <hr>
+               <b>Battery:</b> {{ device2.Battery }}
+               <hr>
+               <b>Front Camera:</b> {{ device2.FrontCamera }}
+               <hr>
+               <b>Date of Release:</b> {{ device2.date_of_release }}
+               <hr>
+               <b>Manufacturer:</b> {{ device2.manufacturer }}
+               <hr>
+               <b>Screen Height:</b> {{ device2.screen_height }}
+               <hr>
+               <b>Screen Width:</b> {{ device2.screen_width }}
+               <hr>
+               <b>Weight:</b> {{ device2.weight }}
+               <hr>
+               <b>Color:</b> {{ device2.color }}
+               <hr>
+               <b>Fingerprint Sensor:</b> {% if device2.fingerprintSensor %}Yes{% else %}No{% endif %}
+               <hr>
+               {% for mobile in device2.mobile_set.all %}
+               <b>Network:</b> {{ mobile.network }}
+               <hr>
+               <b>Rare Camera:</b> {{ mobile.rareCamera }}
+               <hr>
+               <b>Refresh State:</b> {{ mobile.refreshState }}
+               <hr>
+               <b>Screen Type:</b> {{ mobile.screenType }}
+               <hr>
+               {% endfor %}
+               {% for laptop in device2.laptop_set.all %}
+               <b>Laptop Generation:</b> {{ laptop.generation }}<hr>
+               <b>SSD:</b> {{ laptop.ssd }}<hr>
+               <b>Operating System:</b> {{ laptop.os }}<hr>
+               <b>Graphics Card:</b> {{ laptop.graphicscard }}<hr>
+              
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+      {% else %}
+      <h2>No devices found.</h2>
+      {% endif %}
+   </body>
+</html>

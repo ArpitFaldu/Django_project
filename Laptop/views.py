@@ -54,3 +54,24 @@ def laptop(request):
     devices = devices.filter(**filters)
 
     return render(request,'laptop.html',{'device':devices})
+
+
+
+def compare_devices(request):
+    if request.method == 'POST':
+     
+        devices = Device.objects.filter(Type="Laptop")
+        device1_name = request.POST.get('device1_name')
+        device2_name = request.POST.get('device2_name')
+       
+        try:
+            device1 = Device.objects.get(name=device1_name)
+            device2 = Device.objects.get(name=device2_name)
+        except Device.DoesNotExist:
+            device1 = None
+            device2 = None
+       
+        return render(request, 'compare_result.html', {'device1': device1, 'device2': device2})
+    else:
+        return render(request, 'home.html')
+

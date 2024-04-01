@@ -114,62 +114,188 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .navbar {
-            background-color: #f0f0f0;
-            padding: 10px 20px;
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f0f0f0;
+            }
+
+            form {
+                max-width: 600px;
+                margin: 20px auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            fieldset {
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+            legend {
+                font-weight: bold;
+                color: #333;
+            }
+
+            label {
+                display: inline-block;
+                margin-bottom: 5px;
+            }
+
+            input[type="checkbox"] {
+                margin-right: 5px;
+            }
+
+            input[type="submit"] {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            input[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+            nav {
+            text-align: center;
+            margin-top: 20px;
         }
-        
-        .navbar h1 {
-            margin: 0;
-        }
-        
-        .navbar ul {
-            list-style-type: none;
-            margin: 0;
+
+        nav ul {
             padding: 0;
+            margin: 0;
+            list-style: none;
         }
-        
-        .navbar ul li {
+
+        nav ul li {
             display: inline;
             margin-right: 20px;
         }
         
-        .navbar ul li a {
+        nav ul li a {
+            color: white;
             text-decoration: none;
+        }
+
+        nav ul li a:hover {
             color: black;
         }
-        
-        /* Box styling */
-        .wishlist-container {
+        body{
+            background-color: lightgrey;
+        }
+        nav {
+            background-color: grey;
+        }
+        h2{
+            text-align:center;
+        }  
+        .image-container {
+            display: inline-block;
+            width: 50%; /* Adjust as needed */
+            margin-right: -5px; /* Reduce spacing between images */
+            text-align: center; /* Center images within containers */
+        }
+    
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Ensure images don't have extra space below */
+            margin: 0 auto; /* Center images horizontally */
+        }
+        {% comment %} .container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
-            padding: 25px;
+          }
+          
+          .box {
+            flex: 10 calc(33.33%); /* Adjust the width as needed */
+            margin: 5px; /* Adjust the margin as needed */
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-sizing: border-box;
+          } {% endcomment %}
+          .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust the minimum width of each container */
+            grid-gap: 20px; /* Adjust the gap between containers */
         }
-        .box-content {
-            padding: 15px 15px; /* Adjust the padding as needed */
-        }
+        
         .box {
-            width: calc(50% - 20px);
-            background-color: #fff;
+            background-color: #f0f0f0;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            margin-bottom: 20px;
-            box-sizing: border-box;
+        }
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
         }
         
-        /* Image container styling */
-        .image-container {
+        .container {
+            {% comment %} max-width: 1200px; {% endcomment %}
+            margin: 0 auto;
+            padding: 20px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
+        }
+        .box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .box-content {
+            padding: 20px;
+        }
+        
+        .box-content h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+        
+        .box-content p {
+            margin: 10px 0;
+        }
+        
+        .box-content span {
+            font-weight: bold;
+        }
+        
+        .box-content .features {
+            margin-top: 20px;
+        }
+        
+        .box-content .features li {
             margin-bottom: 10px;
         }
         
-        .image-container img {
-            width: calc(50% - 50px);
-            height: auto;
-            display: block;
+        .box-content .features li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .box-content .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .box-content .btn:hover {
+            background-color: #0056b3;
         }
 
     </style>
@@ -184,11 +310,10 @@
         <li><a href="/">Home</a></li>
     </ul>
 </nav>
-<div class="wishlist-container">
+<div class="container">
     {% for w in wishlist %}
     {% if w.user_id.id == user_id %}
     <div class="box">
-        <div class="box-content">
         <b>Name:-</b>&nbsp{{w.device_id.name}}
         <br>
         <b>Processor:-</b>&nbsp{{w.device_id.processor}}
@@ -197,8 +322,10 @@
         <br>
         <br>
         <div class="image-container">
-            <b>Front Side View:-</b><br> <img src="{{w.device_id.frontsideimg.url}}" alt="Front Side View">
-            <b>Back Side View:-</b><br> <img src="{{w.device_id.backsideimg.url}}" alt="Back Side View">
+            <b>Front Side View:-</b><br> <img src="{{w.device_id.frontsideimg.url}}" style="width:300px; height:300px" alt="Front Side View">
+        </div>
+        <div class="image-container">
+            <b>Back Side View:-</b><br> <img src="{{w.device_id.backsideimg.url}}" style="width:300px; height:300px" alt="Back Side View">
         </div>
         <br>
         <br>
@@ -228,17 +355,18 @@
         {% endif %}
         <br>
         <b>Front Camera:-</b> {{w.device_id.FrontCamera}}
-    </div>
 
-    {% endif %}
-    <form action="{% url 'remove_from_wishlist' w.id %}" method="POST">
-        {% csrf_token %}
-        {% comment %} <input type="hidden" name="device_id" value="{{ w.device_id.device_id }}"> {% endcomment %}
-        <button type="submit">Remove from Wishlist</button>
-    </form>
+<form action="{% url 'remove_from_wishlist' w.id %}" method="POST">
+    {% csrf_token %}
+    {% comment %} <input type="hidden" name="device_id" value="{{ w.device_id.device_id }}"> {% endcomment %}
+    <button type="submit">Remove from Wishlist</button>
+</form>
+{% endif %}
 </div>
     {% endfor %}
 </div>
+
+
 {% else %}
 <h1>Hello!!</h1>
 <nav class="navbar">

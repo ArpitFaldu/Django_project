@@ -134,6 +134,13 @@
         <li><a href="wishlist">Wishlist</a></li>
     </ul>
 </nav>
+<form method="POST" action="{% url 'compare' %}">
+    {% csrf_token %}
+    <input type="text" name="device1_name" id="searchInput" placeholder="Search..." >
+    <input type="text" name="device2_name" id="searchInput" placeholder="Search..." >
+    <button type="submit"> Compare</Button>
+ </form>
+
 <h2>Laptop Specs Form</h2>
     <form action="#" method="post">
         {% csrf_token %}

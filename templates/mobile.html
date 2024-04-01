@@ -199,6 +199,13 @@
                     <li><a href="wishlist">Wishlist</a></li>
                 </ul>
             </nav>
+            <form method="POST" action="{% url 'comparemobile' %}">
+                {% csrf_token %}
+                 <input type="text" name="device1_name"  placeholder="Search..." >
+                 <input type="text" name="device2_name"  placeholder="Search..." >
+                 <button type="submit"> Compare</Button>
+               </form>
+
   <h2>Mobile Specs Form</h2>
     <form action="{% url 'mobile' %}" method="post">
         {% csrf_token %}

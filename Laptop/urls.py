@@ -10,5 +10,6 @@ urlpatterns=[
     path("add_to_wishlist", add_to_wishlist, name='add_to_wishlist'),
     path("wishlist", wishlist, name='wishlist'),
     path("logout", logout, name='logout'),
+    path("compare", views.compare_devices, name='compare'),
     path("remove_from_wishlist/<int:wishlist_id>/", remove_from_wishlist, name='remove_from_wishlist'),
 ]

@@ -50,6 +50,7 @@ def mobile(request):
                 # Add filter criterion to the dictionary
                 filters[field] = value
 
+
     # Apply filters to the queryset
     devices = devices.filter(**filters)
 
@@ -96,3 +97,26 @@ def remove_from_wishlist(request,wishlist_id):
         return HttpResponse("Item removed from wishlist successfully!")        
     else:
         return HttpResponse("Only POST requests are allowed.")
+
+
+
+def comparemobile(request):
+    if request.method == 'POST':
+        devices = Device.objects.filter(Type="Mobile")
+        device1_name = request.POST.get('device1_name')
+        device2_name = request.POST.get('device2_name')
+       
+        try:
+            print("hi")
+            device1 = Device.objects.get(name=device1_name)
+            device2 = Device.objects.get(name=device2_name)
+            print(device1)
+        except Device.DoesNotExist:
+            #  one or both devices do not exist
+            device1 = None
+            device2 = None
+       
+        return render(request, 'compare_result.html', {'device1': device1, 'device2': device2})
+    else:
+        # request method is not POST
+        return render(request, 'mobile.html')
