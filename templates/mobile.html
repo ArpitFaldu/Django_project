@@ -89,6 +89,9 @@
       h2{
         text-align:center;
       }
+      h1{
+        text-align:center;
+      }
       .image-container {
         display: inline-block;
         width: 50%; /* Adjust as needed */
@@ -206,7 +209,7 @@
                  <button type="submit"> Compare</Button>
                </form>
 
-  <h2>Mobile Specs Form</h2>
+  <h1>Mobile Specs Form</h1>
     <form action="{% url 'mobile' %}" method="post">
         {% csrf_token %}
         <input type="text" name="name" placeholder="Enter name"></input>
