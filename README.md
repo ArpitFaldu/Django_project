@@ -1,4 +1,4 @@
-# 📱 Device Comparison Platform
+# 📱 PickNCompare – Device Comparison Platform
 
 A **Django-powered web application** designed to help users compare **mobiles and laptops** with ease. The platform offers a seamless user experience for exploring, filtering, and analyzing devices to support informed purchasing decisions.
 
